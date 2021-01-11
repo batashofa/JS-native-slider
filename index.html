@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Slide JS</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
-  <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slide JS</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <div class="carousel">
-  <div id="slides" class="slides">
-    <div class="slide active" style="background-image: url(img/img1.jpg)">Slide 1</div>
-    <div class="slide" style="background-image: url(img/img2.jpg)">Slide 2</div>
-    <div class="slide" style="background-image: url(img/img3.jpg)">Slide 3</div>
-    <div class="slide" style="background-image: url(img/img4.jpg)">Slide 4</div>
-    <div class="slide" style="background-image: url(img/img5.jpg)">Slide 5</div>
-  </div>
+    <div id="slides" class="slides">
+        <div class="slide active" style="background-image: url(img/img1.jpg)"></div>
+        <div class="slide" style="background-image: url(img/img2.jpg)"></div>
+        <div class="slide" style="background-image: url(img/img3.jpg)"></div>
+        <div class="slide" style="background-image: url(img/img4.jpg)"></div>
+        <div class="slide" style="background-image: url(img/img5.jpg)"></div>
+    </div>
 </div>
 <div id="indicators" class="indicators">
-  <span class="indicator active" data-slide-to="0"></span>
-  <span class="indicator" data-slide-to="1"></span>
-  <span class="indicator" data-slide-to="2"></span>
-  <span class="indicator" data-slide-to="3"></span>
-  <span class="indicator" data-slide-to="4"></span>
+    <span class="indicator active" data-slide-to="0"></span>
+    <span class="indicator" data-slide-to="1"></span>
+    <span class="indicator" data-slide-to="2"></span>
+    <span class="indicator" data-slide-to="3"></span>
+    <span class="indicator" data-slide-to="4"></span>
 </div>
 <div id="controls" class="controls">
-  <div id="prev-btn" class="control control-prev"> <i class="fas fa-angle-left"></i> </div>
-  <div id="next-btn" class="control control-next"><i class="fas fa-angle-right"></i> </div>
-  <div id="pause-btn" class="control control-pause"> <i class="far fa-pause-circle"></i> </div>
+    <div id="prev-btn" class="control control-prev"><i class="fas fa-angle-left"></i></div>
+    <div id="next-btn" class="control control-next"><i class="fas fa-angle-right"></i></div>
+    <div id="pause-btn" class="control control-pause"><i class="far fa-pause-circle"></i></div>
 </div>
-  <script src="js/main.js"></script>
+<script src="js/carousel.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
