@@ -1,0 +1,173 @@
+/*
+essential styles:
+these make the slideshow work
+*/
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+/*.carousel {*/
+/*  height: 100vh;*/
+/*  max-width: 100vw;*/
+/*  margin: auto;*/
+
+/*}*/
+.slides {
+  position: relative;
+  height: 100vh;
+  padding: 0px;
+  margin: 0px;
+  list-style-type: none;
+  background-repeat: no-repeat ;
+}
+
+.slide {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.5s;
+
+}
+
+.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+/*
+non-essential styles:
+just for appearance; change whatever you want
+*/
+
+.slide {
+  font-size: 40px;
+  padding: 40px;
+  box-sizing: border-box;
+  background-color: #333 ;
+  color: #fff;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.slide.active {
+  z-index: 1;
+  opacity: 1;
+}
+
+.controls {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}
+.indicators {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  justify-content: center;
+}
+.indicator {
+  width: 20px;
+  height: 20px;
+  margin: -40px 7.5px 0;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  outline: none;
+  background: red;
+  background-clip: padding-box;
+}
+.indicator.active {
+  background-color: green;
+}
+.control {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.control-prev,
+.control-next,
+.control-pause {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.control-pause {
+  top: calc(50% - 20vh);
+  left: calc(50% - 20vh);
+  height: 40vh;
+  padding: 0;
+  transition: opacity 0.15s ease-out;
+  opacity: 0;
+}
+.control-pause:hover, .control-pause:focus {
+  transition: opacity 1s ease-in 0.5s;
+  opacity: 1;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+.control-prev {
+  left: 0;
+  width: 10%;
+}
+
+.control-prev:hover,
+.control-prev:focus {
+  color: #ffffff;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  text-shadow: 0 0 10px #ffffff;
+}
+
+
+.control-next {
+  right: 0;
+  width: 10%;
+}
+
+.control-next:hover,
+.control-next:focus {
+  color: #ffffff;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  text-shadow: 0 0 10px #ffffff;
+}
+
+
+.fa-play-circle,
+.fa-pause-circle {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 40vh;
+}
+.fa-angle-left,
+.fa-angle-right {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 40px;
+}
