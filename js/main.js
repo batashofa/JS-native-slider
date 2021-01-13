@@ -2,5 +2,6 @@
 // /* eslint-disable func-style */
 // /* eslint-disable require-jsdoc */
 //
-let carousel = new Carousel();
-carousel.init()
+let carousel = new SwipeCarousel('1', '2');
+carousel.init();
+
