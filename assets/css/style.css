@@ -5,6 +5,11 @@ these make the slideshow work
 * {
   box-sizing: border-box;
 }
+html {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+}
+
 body {
   margin: 0;
 }
@@ -15,10 +20,9 @@ body {
   padding: 0px;
   margin: 0px;
   list-style-type: none;
-  background-repeat: no-repeat ;
 }
 
-.slide {
+.slides__item {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -152,10 +156,22 @@ just for appearance; change whatever you want
 .fa-play-circle,
 .fa-pause-circle {
   color: rgba(255, 255, 255, 0.4);
-  font-size: 40vh;
+  font-size: 20vh;
 }
 .fa-angle-left,
 .fa-angle-right {
   color: rgba(255, 255, 255, 0.4);
   font-size: 40px;
+}
+
+
+@media (min-width: 992px) {
+  .control-pause,
+  .control-prev,
+  .control-next {
+    cursor: pointer;
+  }
+  .indicator {
+    cursor: pointer;
+  }
 }

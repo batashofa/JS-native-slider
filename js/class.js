@@ -4,23 +4,23 @@
 //
 
 
-function Carousel(containerID = '#carousel', slideID = '.slides__item') {
-    this.container = document.querySelector(containerID);
-    this.slides = this.container.querySelectorAll(slideID);
+class Carousel {
+    constructor(s) {
+        let settings = this._initConfig(s);
+        this.container = document.querySelector(settings.containerID);
+        this.slides = this.container.querySelectorAll(settings.slideID);
 
+        this.interval = settings.interval;
 
-    this.interval = 2000;
+    }
 
-    this._initProps();
-    this._initIndicators();
-    this._initControls();
-    this._initListeners();
+    _initConfig(o) {
+        const p = {containerID: '#carousel', slideID: '.slide', interval: 5000};
 
-}
+        return {...p, ...o};
+    }
 
-Carousel.prototype = {
-
-    _initProps: function () {
+    _initProps() {
         this.currentSlide = 0;
         this.isPlaying = true;
         this.timerID = null;
@@ -33,10 +33,10 @@ Carousel.prototype = {
         this.FA_PREV = '<i class ="fas fa-angle-left"> </i>';
         this.FA_PLAY = '<i class="far fa-play-circle"></i>';
         this.FA_NEXT = '<i class ="fas fa-angle-right"> </i>';
-    },
+    }
 
 
-    _initIndicators: function () {
+    _initIndicators() {
         const indicators = document.createElement('div');
         indicators.setAttribute('class', 'indicators');
         indicators.setAttribute('id', 'indicators');
@@ -54,9 +54,9 @@ Carousel.prototype = {
         this.container.appendChild(indicators);
         this.indicatorsContainer = this.container.querySelector('#indicators');
         this.indicators = this.container.querySelectorAll('.indicator');
-    },
+    }
 
-    _initControls: function () {
+    _initControls() {
         const controls = document.createElement('div');
         const PREV = `<span id = "prev-btn" class = "control control-prev">${this.FA_PREV}</span>`;
         const NEXT = `<span id = "next-btn" class = "control control-next">${this.FA_NEXT}</span>`;
@@ -70,102 +70,104 @@ Carousel.prototype = {
         this.pauseBtn = this.container.querySelector('#pause-btn');
         this.prevBtn = this.container.querySelector('#prev-btn');
         this.nextBtn = this.container.querySelector('#next-btn');
-    },
+    }
 
-    _initListeners: function () {
+    _initListeners() {
         this.prevBtn.addEventListener('click', this.prev.bind(this));
         this.nextBtn.addEventListener('click', this.next.bind(this));
         this.pauseBtn.addEventListener('click', this.pausePlay.bind(this));
         this.indicatorsContainer.addEventListener('click', this.indicatorsHandler.bind(this));
         document.addEventListener('keydown', this.pressKey.bind(this));
-    },
+    }
 
-    gotoNth: function (n) {
+    gotoNth(n) {
         this.slides[this.currentSlide].classList.toggle('active');
         this.indicators[this.currentSlide].classList.toggle('active');
 
         this.currentSlide = (n + this.slides.length) % this.slides.length;
         this.slides[this.currentSlide].classList.toggle('active');
         this.indicators[this.currentSlide].classList.toggle('active');
-    },
+    }
 
-    gotoPrev: function () {
+    gotoPrev() {
         this.gotoNth(this.currentSlide - 1);
-    },
+    }
 
-    gotoNext: function () {
+    gotoNext() {
         this.gotoNth(this.currentSlide + 1);
-    },
+    }
 
-    pause: function () {
+    pause() {
         if (this.isPlaying) {
             clearInterval(this.timerID);
             this.pauseBtn.innerHTML = this.FA_PLAY;
             this.isPlaying = false;
         }
-    },
+    }
 
-    play: function () {
+    play() {
         this.timerID = setInterval(() => this.gotoNext(), this.interval);
         this.pauseBtn.innerHTML = this.FA_PAUSE;
         this.isPlaying = true;
-    },
+    }
 
-    pausePlay: function () {
+    pausePlay() {
         this.isPlaying ? this.pause() : this.play();
-    },
+    }
 
-    next: function () {
+    next() {
         this.pause();
         this.gotoNext();
-    },
+    }
 
-    prev: function () {
+    prev() {
         this.pause();
         this.gotoPrev();
-    },
+    }
 
-    indicatorsHandler: function (e) {
+    indicatorsHandler(e) {
         let target = e.target;
 
         if (target.classList.contains('indicator')) {
             this.pause();
             this.gotoNth(+target.dataset.slideTo);
         }
-    },
+    }
 
-    pressKey: function (e) {
+    pressKey(e) {
         if (e.key === this.LEFT_ARROW) this.prev();
         if (e.key === this.RIGHT_ARROW) this.next();
         if (e.key === this.SPACE) this.pausePlay();
-    },
+    }
 
-    init: function () {
+    init() {
+        this._initProps();
+        this._initIndicators();
+        this._initControls();
+        this._initListeners();
+
         this.timerID = setInterval(() => this.gotoNext(), this.interval);
-    },
-};
-
-
-function SwipeCarousel() {
-    Carousel.apply(this, arguments);
+    }
 
 }
 
-SwipeCarousel.prototype = Object.create(Carousel.prototype);
-SwipeCarousel.prototype.constructor = SwipeCarousel;
+class SwipeCarousel extends Carousel {
+    _initListeners() {
+        super._initListeners();
+        this.container.addEventListener('touchstart', this.swipeStart.bind(this));
+        this.container.addEventListener('touchend', this.swipeEnd.bind(this));
+    }
 
-SwipeCarousel.prototype._initListeners = function () {
-    Carousel.prototype._initListeners.apply(this);
-    this.container.addEventListener('touchstart', this.swipeStart.bind(this));
-    this.container.addEventListener('touchend', this.swipeEnd.bind(this));
+    swipeStart(e) {
+        this.swipeStartX = e.changedTouches[0].pageX;
+    };
+
+    swipeEnd(e) {
+        this.swipeEndX = e.changedTouches[0].pageX;
+        this.swipeStartX - this.swipeEndX > 100 && this.next();
+        this.swipeStartX - this.swipeEndX < -100 && this.prev();
+    };
+
 }
 
-SwipeCarousel.prototype.swipeStart = function (e) {
-    this.swipeStartX = e.changedTouches[0].pageX;
-};
 
-SwipeCarousel.prototype.swipeEnd = function (e) {
-    this.swipeEndX = e.changedTouches[0].pageX;
-    this.swipeStartX - this.swipeEndX > 100 && this.next();
-    this.swipeStartX - this.swipeEndX < -100 && this.prev();
-};
